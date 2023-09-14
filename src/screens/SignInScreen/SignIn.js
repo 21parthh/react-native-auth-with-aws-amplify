@@ -11,6 +11,7 @@ import logo from "../../../assets/images/Logo_1.png";
 import CustomInput from "../../components/CustomInput.js/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SignIn = () => {
@@ -18,14 +19,15 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
 
     const { height } = useWindowDimensions();
+    const navigation = useNavigation();
     const onSignInPressed = () => {
-        console.warn("Sign In");
+        navigation.navigate("HomeScreen");
     };
     const onForgotPassword = () => {
-        console.warn("Forgot Password");
+        navigation.navigate("ForgotPasswordScreen");
     };
     const dontHaveAnAccount = () => {
-        console.warn("dontHaveAnAccount");
+        navigation.navigate("SignUp");
     };
     return (
         // <LinearGradient
@@ -58,10 +60,10 @@ const SignIn = () => {
                 />
                 <SocialSignInButtons />
                 <CustomButton
-                text="Don't Have an Account? Create One"
-                onPress={dontHaveAnAccount}
-                type="TERTIARY"
-            />
+                    text="Don't Have an Account? Create One"
+                    onPress={dontHaveAnAccount}
+                    type="TERTIARY"
+                />
             </View>
         </ScrollView>
         // </LinearGradient>

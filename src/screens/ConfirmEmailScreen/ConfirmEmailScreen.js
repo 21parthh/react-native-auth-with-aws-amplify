@@ -10,22 +10,24 @@ import CustomInput from "../../components/CustomInput.js/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 
 const ConfirmEmailScreen = () => {
+    const navigation = useNavigation();
     const [code, setCode] = useState("");
     const [username, setUsername] = useState("");
 
     const { height } = useWindowDimensions();
     const onConfirmPressed = () => {
-        console.warn("Registered");
+        navigation.navigate("HomeScreen");
     };
     const onResendPressed = () => {
-        console.warn("Resend")
-    }
-    const onSignInPressed = () => {
-        console.warn("Sign In");
+        console.warn("Resend");
     };
-    
+    const onSignInPressed = () => {
+        navigation.navigate("SignIn");
+    };
+
     return (
         // <LinearGradient
         //     colors={["#ffafbd", "#ffc3a0"]} // Adjust these colors as needed
@@ -41,9 +43,16 @@ const ConfirmEmailScreen = () => {
                     secureTextEntry={true}
                 />
                 <CustomButton text="Confirm" onPress={onConfirmPressed} />
-                <CustomButton text="Resend Code" onPress={onResendPressed} type="SECONDARY" />
-                <CustomButton text="Back To Sign In" onPress={onSignInPressed} type="TERTIARY"/>
-                
+                <CustomButton
+                    text="Resend Code"
+                    onPress={onResendPressed}
+                    type="SECONDARY"
+                />
+                <CustomButton
+                    text="Back To Sign In"
+                    onPress={onSignInPressed}
+                    type="TERTIARY"
+                />
             </View>
         </ScrollView>
         // </LinearGradient>

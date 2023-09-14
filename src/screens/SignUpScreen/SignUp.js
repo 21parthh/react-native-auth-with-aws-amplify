@@ -11,8 +11,10 @@ import CustomInput from "../../components/CustomInput.js/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 
 const SignUp = () => {
+    const navigation = useNavigation();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,10 +22,7 @@ const SignUp = () => {
 
     const { height } = useWindowDimensions();
     const onRegisterPressed = () => {
-        console.warn("Registered");
-    };
-    const onForgotPassword = () => {
-        console.warn("Forgot Password");
+        navigation.navigate("ConfirmEmailScreen");
     };
     const onTermOfUsePressed = () => {
         console.warn("TermOfUsePressed");
@@ -31,8 +30,8 @@ const SignUp = () => {
     const onPrivacyPolicyPressed = () => {
         console.warn("PrivacyPolicyPressed");
     };
-    const dontHaveAnAccount = () => {
-        console.warn("dontHaveAnAccount");
+    const onSignInPressed = () => {
+        navigation.navigate("SignIn");
     };
     return (
         // <LinearGradient
@@ -78,8 +77,8 @@ const SignUp = () => {
                 </Text>
                 <SocialSignInButtons />
                 <CustomButton
-                    text="Don't Have an Account? Create One"
-                    onPress={dontHaveAnAccount}
+                    text="Have An Account? Sign In"
+                    onPress={onSignInPressed}
                     type="TERTIARY"
                 />
             </View>
