@@ -5,6 +5,7 @@ import {
     StyleSheet,
     useWindowDimensions,
     ScrollView,
+    TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import logo from "../../../assets/images/Logo_1.png";
@@ -12,16 +13,19 @@ import CustomInput from "../../components/CustomInput.js/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SignIn = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const { control, handleSubmit } = useForm();
+
     const { height } = useWindowDimensions();
     const navigation = useNavigation();
-    const onSignInPressed = () => {
-        navigation.navigate("HomeScreen");
+    const onSignInPressed = (data) => {
+        console.log(data);
     };
     const onForgotPassword = () => {
         navigation.navigate("ForgotPasswordScreen");
@@ -43,16 +47,20 @@ const SignIn = () => {
                 />
                 <CustomInput
                     placeholder="Username"
-                    value={username}
-                    setValue={setUsername}
+                    control={control}
+                    name="username"
                 />
                 <CustomInput
+                    name="password"
                     placeholder="Password"
-                    value={password}
-                    setValue={setPassword}
+                    control={control}
                     secureTextEntry={true}
                 />
-                <CustomButton text="Sign In" onPress={onSignInPressed} />
+
+                <CustomButton
+                    text="Sign In"
+                    onPress={handleSubmit(onSignInPressed)}
+                />
                 <CustomButton
                     text="Forgot Password"
                     onPress={onForgotPassword}
