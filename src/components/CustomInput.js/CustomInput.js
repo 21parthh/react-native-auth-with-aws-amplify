@@ -2,31 +2,46 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 
-const CustomInput = ({ control, name, placeholder, secureTextEntry }) => {
+const CustomInput = ({
+    control,
+    name,
+    placeholder,
+    secureTextEntry,
+    rules = {},
+}) => {
     return (
-        <View style={styles.container}>
-            {/* <TextInput
-                value={value}
-                onChangeText={setValue}
-                placeholder={placeholder}
-                style={styles.input}
-                secureTextEntry={secureTextEntry}
-            /> */}
-            <Controller
-                control={control}
-                name={name}
-                render={({ field: { value, onChange, onBlur } }) => (
-                    <TextInput
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        placeholder={placeholder}
-                        style={styles.input}
-                        secureTextEntry={secureTextEntry}
-                    />
-                )}
-            />
-        </View>
+        <Controller
+            control={control}
+            name={name}
+            rules={rules}
+            render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+            }) => (
+                <>
+                    <View
+                        style={[
+                            styles.container,
+                            { borderColor: error ? "red" : "white" },
+                        ]}
+                    >
+                        <TextInput
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            placeholder={placeholder}
+                            style={[styles.input, {}]}
+                            secureTextEntry={secureTextEntry}
+                        />
+                    </View>
+                    {error && (
+                        <Text style={{ color: "red", alignSelf: "stretch" }}>
+                            {error.message || "Error"}
+                        </Text>
+                    )}
+                </>
+            )}
+        />
     );
 };
 

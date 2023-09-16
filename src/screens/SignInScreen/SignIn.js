@@ -20,7 +20,13 @@ const SignIn = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { control, handleSubmit } = useForm();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    console.log(errors);
 
     const { height } = useWindowDimensions();
     const navigation = useNavigation();
@@ -49,12 +55,20 @@ const SignIn = () => {
                     placeholder="Username"
                     control={control}
                     name="username"
+                    rules={{ required: "Username is required" }}
                 />
                 <CustomInput
                     name="password"
                     placeholder="Password"
                     control={control}
                     secureTextEntry={true}
+                    rules={{
+                        required: "Password is required",
+                        minLength: {
+                            value: 3,
+                            message: "Password is too short",
+                        },
+                    }}
                 />
 
                 <CustomButton
