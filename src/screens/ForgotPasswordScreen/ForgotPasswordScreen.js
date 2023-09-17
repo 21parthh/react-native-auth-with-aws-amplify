@@ -11,8 +11,10 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
 
 const ForgotPasswordScreen = () => {
+    const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
     const [username, setUsername] = useState("");
 
@@ -20,7 +22,8 @@ const ForgotPasswordScreen = () => {
     const onSendPressed = () => {
         navigation.navigate("NewPasswordScreen");
     };
-    const onSignInPressed = () => {
+    const onSignInPressed = (data) => {
+        console.warn(data);
         navigation.navigate("SignIn");
     };
 
@@ -34,10 +37,14 @@ const ForgotPasswordScreen = () => {
                 <Text style={styles.title}>Reset Your Password</Text>
                 <CustomInput
                     placeholder="Username"
-                    value={username}
-                    setValue={setUsername}
+                    name="username"
+                    control={control}
+                    rules={{ required: "USername is required" }}
                 />
-                <CustomButton text="Send" onPress={onSendPressed} />
+                <CustomButton
+                    text="Send"
+                    onPress={handleSubmit(onSendPressed)}
+                />
                 <CustomButton
                     text="Back To Sign In"
                     onPress={onSignInPressed}

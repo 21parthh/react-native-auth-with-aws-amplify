@@ -31,7 +31,7 @@ const SignIn = () => {
     const { height } = useWindowDimensions();
     const navigation = useNavigation();
     const onSignInPressed = (data) => {
-        console.log(data);
+        navigation.navigate("HomeScreen");
     };
     const onForgotPassword = () => {
         navigation.navigate("ForgotPasswordScreen");

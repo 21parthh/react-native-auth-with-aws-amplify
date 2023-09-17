@@ -27,7 +27,7 @@ const SignUp = () => {
     const pwd = watch("password");
 
     const { height } = useWindowDimensions();
-    const onRegisterPressed = () => {
+    const onRegisterPressed = (data) => {
         navigation.navigate("ConfirmEmailScreen");
     };
     const onTermOfUsePressed = () => {

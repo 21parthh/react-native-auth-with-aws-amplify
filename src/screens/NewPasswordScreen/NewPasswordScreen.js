@@ -11,14 +11,17 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
 
 const ForgotPasswordScreen = () => {
+    const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
     const [code, setCode] = useState("");
     const [newPassword, setNewPassword] = useState("");
 
     const { height } = useWindowDimensions();
-    const onSubmitPressed = () => {
+    const onSubmitPressed = (data) => {
+        console.warn(data);
         navigation.navigate("HomeScreen");
     };
     const onSignInPressed = () => {
@@ -35,15 +38,27 @@ const ForgotPasswordScreen = () => {
                 <Text style={styles.title}>Reset Your Password</Text>
                 <CustomInput
                     placeholder="Enter Your Confirmation Code"
-                    value={code}
-                    setValue={setCode}
+                    name="code"
+                    control={control}
+                    rules={{ required: "Code is required" }}
                 />
                 <CustomInput
                     placeholder="Enter Your New Password"
-                    value={newPassword}
-                    setValue={setNewPassword}
+                    name="password"
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{
+                        required: "Password is required",
+                        minLength: {
+                            value: 3,
+                            message: "Password is too short",
+                        },
+                    }}
                 />
-                <CustomButton text="Submit" onPress={onSubmitPressed} />
+                <CustomButton
+                    text="Submit"
+                    onPress={handleSubmit(onSubmitPressed)}
+                />
                 <CustomButton
                     text="Back To Sign In"
                     onPress={onSignInPressed}
